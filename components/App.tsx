@@ -18,7 +18,7 @@ const GUN1_ALLIANCE: Alliance = {
   id: 'gun1',
   tag: 'GUN1',
   name: 'GUN 1 Alliance',
-  adminPass: 'gun1admin',
+  adminPass: 'GUN1ADMIN@',
   createdAt: '2025-01-01T00:00:00.000Z'
 };
 
