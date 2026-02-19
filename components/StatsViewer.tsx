@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Player, PlayerFilter } from '../types';
+import { Player, PlayerFilter, Language } from '../types';
 import { MockApi } from '../services/mockBackend';
 import PlayerCard from './PlayerCard';
 import { useLanguage } from '../utils/i18n';
@@ -173,7 +173,8 @@ const StatsViewer: React.FC<StatsViewerProps> = ({ refreshTrigger, onBack }) => 
         </div>
 
         <div className="md:col-span-3">
-             <CustomDropdown value={filter.language} onChange={(val) => setFilter(prev => ({ ...prev, language: val as any }))} options={languageOptions} />
+             {/* Fixed setLanguage error by using setFilter to update language in PlayerFilter state and added missing Language type import */}
+             <CustomDropdown value={filter.language} onChange={(val) => setFilter(prev => ({ ...prev, language: val as Language | 'all' }))} options={languageOptions} />
         </div>
         <div className="md:col-span-3">
              <CustomDropdown value={filter.sort} onChange={(val) => setFilter(prev => ({ ...prev, sort: val as any }))} options={sortOptions} />

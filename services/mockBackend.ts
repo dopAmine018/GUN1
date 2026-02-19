@@ -1,6 +1,5 @@
-
 import { createClient } from '@supabase/supabase-js';
-import { Player, PlayerFilter, ApiResponse, AuthResponse, VsWeek, VsRecord, Announcement, Alliance } from '../types';
+import { Player, PlayerFilter, ApiResponse, AuthResponse, VsWeek, VsRecord, Announcement, Alliance, DesertStormRegistration } from '../types';
 
 const PROVIDED_URL = "https://akmsbujnguptxdgxdqbp.supabase.co";
 const PROVIDED_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFrbXNidWpuZ3VwdHhkZ3hkcWJwIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MTAxNTM4OSwiZXhwIjoyMDg2NTkxMzg5fQ.uoGB8zvudc1O8J18_3V03L_fhr_G5zlFGEXCbRK79Gc";
@@ -23,30 +22,25 @@ const supabase = createClient(supabaseUrl.trim(), supabaseKey.trim(), {
   auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false }
 });
 
-// --- TACTICAL MOCK FALLBACK DATA ---
 const MOCK_ALLIANCE: Alliance = {
   id: 'gun1',
   tag: 'GUN1',
   name: 'GUN 1 Alliance',
-  adminPass: 'gun1admin',
+  adminPass: 'GUN1ADMIN@',
   createdAt: '2025-01-01T00:00:00.000Z'
 };
 
-const DEFAULT_STATS = {
-  allianceId: 'gun1',
-  masteryType: 'none' as const,
-  masteryHp1: 0, masteryAtk1: 0, masteryDef1: 0, masteryDmg1: 0, masteryMarch1: 0,
-  masteryHp2: 0, masteryAtk2: 0, masteryDef2: 0, masteryDmg2: 0, masteryUltDef2: 0,
-  siegePb1: 0, siegeFs1: 0, siegeFa1: 0, siegeVf1: 0, siegeEdg: 0, siegeBe1: 0, siegeFt1: 0,
-  siegeFs2: 0, siegeFa2: 0, siegeVf2: 0, siegeDge: 0, siegeRm1: 0, siegeFs3: 0, siegeFa3: 0,
-  siegeVf3: 0, siegeFst1: 0
+const DEFAULT_STS = {
+  stsPowerBoost1: 0, stsFinalStand1: 0, stsFierceAssault1: 0, stsVigilantFormation1: 0,
+  stsExtraDrillGround: 0, stsBarrackExpansion1: 0, stsFocusedTraining1: 0,
+  stsFinalStand2: 0, stsFierceAssault2: 0, stsVigilantFormation2: 0,
+  stsDrillGroundExpansion: 0, stsRapidMarch1: 0,
+  stsFinalStand3: 0, stsFierceAssault3: 0, stsVigilantFormation3: 0, stsFatalStrike1: 0
 };
 
-// Fix INITIAL_MOCK_PLAYERS to include all required Player properties (Lines 27-29)
 const INITIAL_MOCK_PLAYERS: Player[] = [
-    { id: 'm1', ...DEFAULT_STATS, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), language: 'english', name: 'imAYAD', nameNormalized: 'imayad', firstSquadPower: 23200000, totalHeroPower: 18500000, heroPercent: 92, duelPercent: 88, unitsPercent: 85, t10Morale: 10, t10Protection: 10, t10Hp: 10, t10Atk: 10, t10Def: 10, t10Elite: 10, techLevel: 35, barracksLevel: 35, tankCenterLevel: 35, airCenterLevel: 35, missileCenterLevel: 35, active: true },
-    { id: 'm2', ...DEFAULT_STATS, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), language: 'turkish', name: 'TuyuLL', nameNormalized: 'tuyull', firstSquadPower: 23000000, totalHeroPower: 18100000, heroPercent: 90, duelPercent: 85, unitsPercent: 82, t10Morale: 10, t10Protection: 10, t10Hp: 10, t10Atk: 10, t10Def: 10, t10Elite: 10, techLevel: 35, barracksLevel: 35, tankCenterLevel: 35, airCenterLevel: 35, missileCenterLevel: 35, active: true },
-    { id: 'm3', ...DEFAULT_STATS, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), language: 'indonesian', name: 'Sukakamuturu', nameNormalized: 'sukakamuturu', firstSquadPower: 21300000, totalHeroPower: 16500000, heroPercent: 85, duelPercent: 80, unitsPercent: 78, t10Morale: 8, t10Protection: 9, t10Hp: 8, t10Atk: 8, t10Def: 8, t10Elite: 0, techLevel: 32, barracksLevel: 32, tankCenterLevel: 32, airCenterLevel: 32, missileCenterLevel: 32, active: true }
+    { id: 'm1', allianceId: 'gun1', ...DEFAULT_STS, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), language: 'english', name: 'imAYAD', nameNormalized: 'imayad', firstSquadPower: 23200000, totalHeroPower: 18500000, heroPercent: 92, duelPercent: 88, unitsPercent: 85, t10Morale: 10, t10Protection: 10, t10Hp: 10, t10Atk: 10, t10Def: 10, t10Elite: 10, techLevel: 35, barracksLevel: 35, tankCenterLevel: 35, airCenterLevel: 35, missileCenterLevel: 35, active: true },
+    { id: 'm2', allianceId: 'gun1', ...DEFAULT_STS, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), language: 'turkish', name: 'TuyuLL', nameNormalized: 'tuyull', firstSquadPower: 23000000, totalHeroPower: 18100000, heroPercent: 90, duelPercent: 85, unitsPercent: 82, t10Morale: 10, t10Protection: 10, t10Hp: 10, t10Atk: 10, t10Def: 10, t10Elite: 10, techLevel: 35, barracksLevel: 35, tankCenterLevel: 35, airCenterLevel: 35, missileCenterLevel: 35, active: true },
 ];
 
 const getLocalMockData = <T>(key: string, initial: T): T => {
@@ -64,7 +58,6 @@ const formatError = (err: any): string => {
   return err.message || err.details || "Database transaction failed";
 };
 
-// Fix mapPlayerFromDb to include all required Player properties (Line 47)
 const mapPlayerFromDb = (row: any): Player => ({
   id: row.id,
   allianceId: row.alliance_id || 'gun1',
@@ -87,39 +80,28 @@ const mapPlayerFromDb = (row: any): Player => ({
   t10Atk: row.t10_atk,
   t10Def: row.t10_def,
   t10Elite: row.t10_elite || 0,
+  stsPowerBoost1: row.sts_power_boost_1 || 0,
+  stsFinalStand1: row.sts_final_stand_1 || 0,
+  stsFierceAssault1: row.sts_fierce_assault_1 || 0,
+  stsVigilantFormation1: row.sts_vigilant_formation_1 || 0,
+  stsExtraDrillGround: row.sts_extra_drill_ground || 0,
+  stsBarrackExpansion1: row.sts_barrack_expansion_1 || 0,
+  stsFocusedTraining1: row.sts_focused_training_1 || 0,
+  stsFinalStand2: row.sts_final_stand_2 || 0,
+  stsFierceAssault2: row.sts_fierce_assault_2 || 0,
+  stsVigilantFormation2: row.sts_vigilant_formation_2 || 0,
+  stsDrillGroundExpansion: row.sts_drill_ground_expansion || 0,
+  stsRapidMarch1: row.sts_rapid_march_1 || 0,
+  stsFinalStand3: row.sts_final_stand_3 || 0,
+  stsFierceAssault3: row.sts_fierce_assault_3 || 0,
+  stsVigilantFormation3: row.sts_vigilant_formation_3 || 0,
+  stsFatalStrike1: row.sts_fatal_strike_1 || 0,
   techLevel: row.tech_level,
   barracksLevel: row.barracks_level,
   tankCenterLevel: row.tank_center_level,
   airCenterLevel: row.air_center_level,
   missileCenterLevel: row.missile_center_level,
-  active: row.active,
-  masteryType: row.mastery_type || 'none',
-  masteryHp1: row.mastery_hp1 || 0,
-  masteryAtk1: row.mastery_atk1 || 0,
-  masteryDef1: row.mastery_def1 || 0,
-  masteryDmg1: row.mastery_dmg1 || 0,
-  masteryMarch1: row.mastery_march1 || 0,
-  masteryHp2: row.mastery_hp2 || 0,
-  masteryAtk2: row.mastery_atk2 || 0,
-  masteryDef2: row.mastery_def2 || 0,
-  masteryDmg2: row.mastery_dmg2 || 0,
-  masteryUltDef2: row.mastery_ult_def2 || 0,
-  siegePb1: row.siege_pb1 || 0,
-  siegeFs1: row.siege_fs1 || 0,
-  siegeFa1: row.siege_fa1 || 0,
-  siegeVf1: row.siege_vf1 || 0,
-  siegeEdg: row.siege_edg || 0,
-  siegeBe1: row.siege_be1 || 0,
-  siegeFt1: row.siege_ft1 || 0,
-  siegeFs2: row.siege_fs2 || 0,
-  siegeFa2: row.siege_fa2 || 0,
-  siegeVf2: row.siege_vf2 || 0,
-  siegeDge: row.siege_dge || 0,
-  siegeRm1: row.siege_rm1 || 0,
-  siegeFs3: row.siege_fs3 || 0,
-  siegeFa3: row.siege_fa3 || 0,
-  siegeVf3: row.siege_vf3 || 0,
-  siegeFst1: row.siege_fst1 || 0,
+  active: row.active
 });
 
 const mapPlayerToDb = (p: Partial<Player>) => {
@@ -141,6 +123,22 @@ const mapPlayerToDb = (p: Partial<Player>) => {
   if (p.t10Atk !== undefined) out.t10_atk = p.t10Atk;
   if (p.t10Def !== undefined) out.t10_def = p.t10Def;
   if (p.t10Elite !== undefined) out.t10_elite = p.t10Elite;
+  if (p.stsPowerBoost1 !== undefined) out.sts_power_boost_1 = p.stsPowerBoost1;
+  if (p.stsFinalStand1 !== undefined) out.sts_final_stand_1 = p.stsFinalStand1;
+  if (p.stsFierceAssault1 !== undefined) out.sts_fierce_assault_1 = p.stsFierceAssault1;
+  if (p.stsVigilantFormation1 !== undefined) out.sts_vigilant_formation_1 = p.stsVigilantFormation1;
+  if (p.stsExtraDrillGround !== undefined) out.sts_extra_drill_ground = p.stsExtraDrillGround;
+  if (p.stsBarrackExpansion1 !== undefined) out.sts_barrack_expansion_1 = p.stsBarrackExpansion1;
+  if (p.stsFocusedTraining1 !== undefined) out.sts_focused_training_1 = p.stsFocusedTraining1;
+  if (p.stsFinalStand2 !== undefined) out.sts_final_stand_2 = p.stsFinalStand2;
+  if (p.stsFierceAssault2 !== undefined) out.sts_fierce_assault_2 = p.stsFierceAssault2;
+  if (p.stsVigilantFormation2 !== undefined) out.sts_vigilant_formation_2 = p.stsVigilantFormation2;
+  if (p.stsDrillGroundExpansion !== undefined) out.sts_drill_ground_expansion = p.stsDrillGroundExpansion;
+  if (p.stsRapidMarch1 !== undefined) out.sts_rapid_march_1 = p.stsRapidMarch1;
+  if (p.stsFinalStand3 !== undefined) out.sts_final_stand_3 = p.stsFinalStand3;
+  if (p.stsFierceAssault3 !== undefined) out.sts_fierce_assault_3 = p.stsFierceAssault3;
+  if (p.stsVigilantFormation3 !== undefined) out.sts_vigilant_formation_3 = p.stsVigilantFormation3;
+  if (p.stsFatalStrike1 !== undefined) out.sts_fatal_strike_1 = p.stsFatalStrike1;
   if (p.techLevel !== undefined) out.tech_level = p.techLevel;
   if (p.barracksLevel !== undefined) out.barracks_level = p.barracksLevel;
   if (p.tankCenterLevel !== undefined) out.tank_center_level = p.tankCenterLevel;
@@ -152,7 +150,7 @@ const mapPlayerToDb = (p: Partial<Player>) => {
 };
 
 export const MockApi = {
-  initialize: () => console.log("App initialized in Tactical Mode (Supabase Hybrid)"),
+  initialize: () => console.log("Uplink Established"),
 
   getPlayers: async (filter: PlayerFilter): Promise<{ items: Player[]; total: number }> => {
       try {
@@ -164,23 +162,18 @@ export const MockApi = {
           if (filter.sort === 'power_desc') query = query.order('first_squad_power', { ascending: false });
           else if (filter.sort === 'power_asc') query = query.order('first_squad_power', { ascending: true });
           else if (filter.sort === 'total_hero_power_desc') query = query.order('total_hero_power', { ascending: false });
-          else if (filter.sort === 'time_asc') query = query.order('updated_at', { ascending: true });
           else query = query.order('updated_at', { ascending: false });
           
           const { data, count, error } = await query.range(0, 9999);
-          if (error) throw new Error(formatError(error));
+          if (error) throw error;
           return { items: (data || []).map(mapPlayerFromDb), total: count || 0 };
       } catch (e: any) {
-          if (e.message?.includes('fetch') || e.name === 'TypeError') {
-              console.warn("Project Unreachable. Switching to Tactical Mock Database.");
-              const local = getLocalMockData<Player[]>('players', INITIAL_MOCK_PLAYERS);
-              let filtered = local;
-              if (filter.activeOnly) filtered = filtered.filter(p => p.active);
-              if (filter.language !== 'all') filtered = filtered.filter(p => p.language === filter.language);
-              if (filter.search) filtered = filtered.filter(p => p.nameNormalized.includes(filter.search.toLowerCase()));
-              return { items: filtered, total: filtered.length };
-          }
-          throw e;
+          const local = getLocalMockData<Player[]>('players', INITIAL_MOCK_PLAYERS);
+          let filtered = local;
+          if (filter.activeOnly) filtered = filtered.filter(p => p.active);
+          if (filter.language !== 'all') filtered = filtered.filter(p => p.language === filter.language);
+          if (filter.search) filtered = filtered.filter(p => p.nameNormalized.includes(filter.search.toLowerCase()));
+          return { items: filtered, total: filtered.length };
       }
   },
 
@@ -195,45 +188,26 @@ export const MockApi = {
           if (result.error) throw result.error;
           return { success: true, data: mapPlayerFromDb(result.data) };
       } catch (e: any) {
-          if (e.message?.includes('fetch') || e.name === 'TypeError') {
-              const local = getLocalMockData<Player[]>('players', INITIAL_MOCK_PLAYERS);
-              const idx = local.findIndex(p => p.nameNormalized === nameNormalized);
-              const newPlayer: Player = {
-                  ...(idx >= 0 ? local[idx] : { id: 'm' + Date.now(), createdAt: new Date().toISOString() }),
-                  ...playerData,
-                  updatedAt: new Date().toISOString(),
-                  nameNormalized
-              } as Player;
-              if (idx >= 0) local[idx] = newPlayer; else local.push(newPlayer);
-              saveLocalMockData('players', local);
-              return { success: true, data: newPlayer };
-          }
-          return { success: false, error: formatError(e) };
+          const local = getLocalMockData<Player[]>('players', INITIAL_MOCK_PLAYERS);
+          const idx = local.findIndex(p => p.nameNormalized === nameNormalized);
+          const newPlayer: Player = {
+              ...(idx >= 0 ? local[idx] : { id: 'm' + Date.now(), createdAt: new Date().toISOString() }),
+              ...playerData,
+              updatedAt: new Date().toISOString(),
+              nameNormalized
+          } as Player;
+          if (idx >= 0) local[idx] = newPlayer; else local.push(newPlayer);
+          saveLocalMockData('players', local);
+          return { success: true, data: newPlayer };
       }
   },
 
-  // Fix login to return alliance instead of user (Lines 173, 176)
   login: async (username: string, password: string): Promise<ApiResponse<AuthResponse>> => {
-    try {
-        const { data, error } = await supabase.auth.signInWithPassword({
-          email: username === 'admin' ? 'admin@admin.com' : username,
-          password,
-        });
-        if (error) throw error;
-        return { success: true, data: { token: data.session?.access_token || '', alliance: MOCK_ALLIANCE } };
-    } catch (e: any) {
-        if (e.message?.includes('fetch') || e.name === 'TypeError') {
-            if (password === 'GUN1ADMIN@') return { success: true, data: { token: 'mock-token', alliance: MOCK_ALLIANCE } };
-            return { success: false, error: "Cloud unreachable. Use local access key." };
-        }
-        return { success: false, error: formatError(e) };
-    }
+    if (password === 'GUN1ADMIN@') return { success: true, data: { token: 'mock-token', alliance: MOCK_ALLIANCE } };
+    return { success: false, error: 'Access Denied' };
   },
 
-  logout: async () => {
-    try { await supabase.auth.signOut(); } catch(e) {}
-    localStorage.removeItem('asn1_auth_token');
-  },
+  logout: async () => { localStorage.removeItem('asn1_auth_token'); },
 
   adminUpdatePlayer: async (id: string, updates: Partial<Player>): Promise<ApiResponse<Player>> => {
     try {
@@ -242,184 +216,93 @@ export const MockApi = {
         if (error) throw error;
         return { success: true, data: mapPlayerFromDb(data) };
     } catch (e: any) {
-        if (e.message?.includes('fetch') || e.name === 'TypeError') {
-            const local = getLocalMockData<Player[]>('players', INITIAL_MOCK_PLAYERS);
-            const idx = local.findIndex(p => p.id === id);
-            if (idx === -1) return { success: false, error: "Mock ID not found" };
-            local[idx] = { ...local[idx], ...updates, updatedAt: new Date().toISOString() } as Player;
-            saveLocalMockData('players', local);
-            return { success: true, data: local[idx] };
-        }
-        return { success: false, error: formatError(e) };
+        const local = getLocalMockData<Player[]>('players', INITIAL_MOCK_PLAYERS);
+        const idx = local.findIndex(p => p.id === id);
+        if (idx === -1) return { success: false, error: "Mock ID not found" };
+        local[idx] = { ...local[idx], ...updates, updatedAt: new Date().toISOString() } as Player;
+        saveLocalMockData('players', local);
+        return { success: true, data: local[idx] };
     }
   },
 
   adminDeletePlayer: async (id: string): Promise<ApiResponse<void>> => {
     try {
-        const { error } = await supabase.from('players').delete().eq('id', id);
-        if (error) throw error;
+        await supabase.from('players').delete().eq('id', id);
         return { success: true };
-    } catch (e: any) {
-        if (e.message?.includes('fetch') || e.name === 'TypeError') {
-            const local = getLocalMockData<Player[]>('players', INITIAL_MOCK_PLAYERS);
-            saveLocalMockData('players', local.filter(p => p.id !== id));
-            return { success: true };
-        }
-        return { success: false, error: formatError(e) };
+    } catch (e) {
+        const local = getLocalMockData<Player[]>('players', INITIAL_MOCK_PLAYERS);
+        saveLocalMockData('players', local.filter(p => p.id !== id));
+        return { success: true };
     }
   },
 
   getSettings: async (): Promise<Record<string, any>> => {
     try {
-      const { data, error } = await supabase.from('alliance_settings').select('*');
-      if (error) throw error;
+      const { data } = await supabase.from('alliance_settings').select('*');
       const settings: Record<string, any> = {};
       (data || []).forEach(row => { settings[row.setting_name] = row.value; });
       return settings;
-    } catch (e: any) { 
-        return getLocalMockData('settings', { show_train_schedule: true, show_desert_storm: true, allow_storm_registration: true });
-    }
+    } catch (e) { return {}; }
   },
 
   updateSetting: async (key: string, value: any): Promise<void> => {
     try {
-        const { error } = await supabase.from('alliance_settings').upsert({ 
-          setting_name: key, value, updated_at: new Date().toISOString() 
-        }, { onConflict: 'setting_name' });
-        if (error) throw error;
-    } catch (e: any) {
-        const local = getLocalMockData<any>('settings', {});
-        local[key] = value;
-        saveLocalMockData('settings', local);
-    }
-  },
-
-  // Fix getAnnouncements to include allianceId (Line 250)
-  getAnnouncements: async (): Promise<Announcement[]> => {
-    try {
-        const { data } = await supabase.from('announcements').select('*').eq('active', true).order('created_at', { ascending: false });
-        return (data || []).map((a: any) => ({
-          id: a.id, allianceId: a.alliance_id || 'gun1', content: a.content, type: a.type, active: a.active, createdAt: a.created_at
-        }));
-    } catch (e) { return []; }
+        await supabase.from('alliance_settings').upsert({ setting_name: key, value, updated_at: new Date().toISOString() });
+    } catch (e) {}
   }
 };
 
 export const VsApi = {
-  // Fix getWeeks to include allianceId (Line 262)
   getWeeks: async (): Promise<VsWeek[]> => {
       try {
-          const { data, error } = await supabase.from('vs_weeks').select('*').order('created_at', { ascending: false });
-          if (error) throw error;
+          const { data } = await supabase.from('vs_weeks').select('*').order('created_at', { ascending: false });
           return (data || []).map((w: any) => ({ id: w.id, allianceId: w.alliance_id || 'gun1', name: w.name, createdAt: w.created_at }));
-      } catch (e) { return getLocalMockData('vs_weeks', []); }
+      } catch (e) { return []; }
   },
-  // Fix createWeek to include allianceId (Line 269, 273, 275)
   createWeek: async (name: string): Promise<VsWeek> => {
-    try {
-        const { data, error } = await supabase.from('vs_weeks').insert({ name, alliance_id: 'gun1' }).select().single();
-        if (error) throw error;
-        return { id: data.id, allianceId: data.alliance_id, name: data.name, createdAt: data.created_at };
-    } catch (e) {
-        const local = getLocalMockData<VsWeek[]>('vs_weeks', []);
-        const nw: VsWeek = { id: 'v' + Date.now(), allianceId: 'gun1', name, createdAt: new Date().toISOString() };
-        local.push(nw);
-        saveLocalMockData('vs_weeks', local);
-        return nw;
-    }
+    const { data } = await supabase.from('vs_weeks').insert({ name, alliance_id: 'gun1' }).select().single();
+    return { id: data.id, allianceId: data.alliance_id, name: data.name, createdAt: data.created_at };
   },
-  // Fix getRecords to include allianceId (Line 282)
   getRecords: async (weekId: string): Promise<VsRecord[]> => {
-      try {
-          const { data, error } = await supabase.from('vs_records').select('*').eq('week_id', weekId).range(0, 9999);
-          if (error) throw error;
-          return (data || []).map((r: any) => ({
-            id: r.id, weekId: r.week_id, allianceId: r.alliance_id || 'gun1', playerName: r.player_name,
-            mon: r.mon, tue: r.tue, wed: r.wed, thu: r.thu, fri: r.fri, sat: r.sat, total: r.total
-          }));
-      } catch (e) { return getLocalMockData(`vs_recs_${weekId}`, []); }
+      const { data } = await supabase.from('vs_records').select('*').eq('week_id', weekId);
+      return (data || []).map((r: any) => ({
+        id: r.id, weekId: r.week_id, allianceId: r.alliance_id || 'gun1', playerName: r.player_name,
+        mon: r.mon, tue: r.tue, wed: r.wed, thu: r.thu, fri: r.fri, sat: r.sat, total: r.total
+      }));
   },
-  // Fix addPlayerToWeek to include allianceId (Lines 292, 296, 298)
-  addPlayerToWeek: async (weekId: string, playerName: string): Promise<VsRecord> => {
-    try {
-        const { data, error } = await supabase.from('vs_records').insert({ week_id: weekId, player_name: playerName, alliance_id: 'gun1' }).select().single();
-        if (error) throw error;
-        return { id: data.id, weekId: data.week_id, allianceId: data.alliance_id, playerName: data.player_name, mon: 0, tue: 0, wed: 0, thu: 0, fri: 0, sat: 0, total: 0 };
-    } catch (e) {
-        const local = getLocalMockData<VsRecord[]>(`vs_recs_${weekId}`, []);
-        const nr: VsRecord = { id: 'vr' + Date.now(), weekId, allianceId: 'gun1', playerName, mon: 0, tue: 0, wed: 0, thu: 0, fri: 0, sat: 0, total: 0 };
-        local.push(nr);
-        saveLocalMockData(`vs_recs_${weekId}`, local);
-        return nr;
-    }
+  addPlayerToWeek: async (weekId: string, playerName: string) => {
+    await supabase.from('vs_records').insert({ week_id: weekId, player_name: playerName, alliance_id: 'gun1' });
   },
-  updateRecord: async (record: VsRecord): Promise<void> => {
+  updateRecord: async (record: VsRecord) => {
     const total = (record.mon || 0) + (record.tue || 0) + (record.wed || 0) + (record.thu || 0) + (record.fri || 0) + (record.sat || 0);
-    try {
-        const { error } = await supabase.from('vs_records').update({ mon: record.mon, tue: record.tue, wed: record.wed, thu: record.thu, fri: record.fri, sat: record.sat, total }).eq('id', record.id);
-        if (error) throw error;
-    } catch (e) {
-        const local = getLocalMockData<VsRecord[]>(`vs_recs_${record.weekId}`, []);
-        const idx = local.findIndex(r => r.id === record.id);
-        if (idx >= 0) { local[idx] = { ...record, total }; saveLocalMockData(`vs_recs_${record.weekId}`, local); }
-    }
+    await supabase.from('vs_records').update({ mon: record.mon, tue: record.tue, wed: record.wed, thu: record.thu, fri: record.fri, sat: record.sat, total }).eq('id', record.id);
   }
 };
 
 export const TrainApi = {
-    getSchedule: async (): Promise<any | null> => {
-        try {
-            const { data } = await supabase.from('train_schedule').select('*').order('created_at', { ascending: false }).limit(1).maybeSingle();
-            return data?.schedule_data || null;
-        } catch (e) { return getLocalMockData('train_sched', null); }
+    getSchedule: async () => {
+        const { data } = await supabase.from('train_schedule').select('*').order('created_at', { ascending: false }).limit(1).maybeSingle();
+        return data?.schedule_data || null;
     },
-    saveSchedule: async (scheduleData: any): Promise<void> => {
-        try {
-            const { error } = await supabase.from('train_schedule').insert({ schedule_data: scheduleData });
-            if (error) throw error;
-        } catch (e) { saveLocalMockData('train_sched', scheduleData); }
+    saveSchedule: async (data: any) => {
+        await supabase.from('train_schedule').insert({ schedule_data: data });
     }
 };
 
-export interface DesertStormData { teamAMain: string[]; teamASubs: string[]; teamBMain: string[]; teamBSubs: string[]; }
-export interface DesertStormRegistration { id: string; playerId: string; preference: '14:00' | '23:00' | 'ANY'; createdAt: string; }
-
 export const DesertStormApi = {
-    getTeams: async (): Promise<DesertStormData | null> => {
-        try {
-            const { data } = await supabase.from('desert_storm_teams').select('*').order('created_at', { ascending: false }).limit(1).maybeSingle();
-            return data?.team_data || null;
-        } catch (e) { return getLocalMockData('storm_teams', null); }
+    getTeams: async () => {
+        const { data } = await supabase.from('desert_storm_teams').select('*').order('created_at', { ascending: false }).limit(1).maybeSingle();
+        return data?.team_data || null;
     },
-    saveTeams: async (data: DesertStormData) => {
-        try {
-            const { error } = await supabase.from('desert_storm_teams').insert({ team_data: data });
-            if (error) throw error;
-        } catch (e) { saveLocalMockData('storm_teams', data); }
+    saveTeams: async (data: any) => {
+        await supabase.from('desert_storm_teams').insert({ team_data: data });
     },
     register: async (playerId: string, preference: string) => {
-         try {
-             await supabase.from('desert_storm_registrations').delete().eq('player_id', playerId);
-             const { error } = await supabase.from('desert_storm_registrations').insert({ player_id: playerId, preference });
-             if (error) throw error;
-         } catch (e) {
-             const local = getLocalMockData<DesertStormRegistration[]>('storm_regs', []);
-             const nr = { id: 'dsr' + Date.now(), playerId, preference: preference as any, createdAt: new Date().toISOString() };
-             const filtered = local.filter(r => r.playerId !== playerId);
-             filtered.push(nr);
-             saveLocalMockData('storm_regs', filtered);
-         }
+        await supabase.from('desert_storm_registrations').delete().eq('player_id', playerId);
+        await supabase.from('desert_storm_registrations').insert({ player_id: playerId, preference });
     },
     getRegistrations: async (): Promise<DesertStormRegistration[]> => {
-        try {
-            const { data } = await supabase.from('desert_storm_registrations').select('*');
-            return (data || []).map((r: any) => ({ id: r.id, playerId: r.player_id, preference: r.preference, createdAt: r.created_at }));
-        } catch (e) { return getLocalMockData('storm_regs', []); }
-    },
-    clearRegistrations: async () => {
-        try {
-            const { error } = await supabase.from('desert_storm_registrations').delete().neq('id', '00000000-0000-0000-0000-000000000000');
-            if (error) throw error;
-        } catch (e) { saveLocalMockData('storm_regs', []); }
+        const { data } = await supabase.from('desert_storm_registrations').select('*');
+        return (data || []).map((r: any) => ({ id: r.id, playerId: r.player_id, preference: r.preference, createdAt: r.created_at }));
     }
 };

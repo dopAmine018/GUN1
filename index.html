@@ -4,21 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>GUN1 Alliance Command | Elite War Strategy Database</title>
+    <title>GUN 1 Alliance Command | Elite War Strategy Database</title>
     <meta
       name="description"
-      content="Secure stats tracking, T10 resource projection, and tactical train scheduling for the GUN1 Alliance. Login to update your dossier."
+      content="Secure stats tracking, T10 resource projection, and tactical train scheduling for the GUN 1 Alliance. Login to update your dossier."
     />
 
-    <!-- Favicon / Branding (place file in /public/ASN_Logo-_1628.png) -->
+    <!-- Favicon / Branding -->
     <link rel="icon" type="image/png" href="/ASN_Logo-_1628.png?v=1" />
     <link rel="apple-touch-icon" href="/ASN_Logo-_1628.png?v=1" />
     <link rel="shortcut icon" type="image/png" href="/ASN_Logo-_1628.png?v=1" />
 
     <!-- Open Graph / Discord / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://asn1-command.app/" />
-    <meta property="og:title" content="GUN1 Alliance Command" />
+    <meta property="og:url" content="https://gun1-command.app/" />
+    <meta property="og:title" content="GUN 1 Alliance Command" />
     <meta
       property="og:description"
       content="Manage your war profile. Track T10 progress. View tactical schedules."
@@ -27,7 +27,7 @@
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:title" content="GUN1 Alliance Command" />
+    <meta property="twitter:title" content="GUN 1 Alliance Command" />
     <meta
       property="twitter:description"
       content="Elite tracking for elite players. Join the leaderboard."
@@ -160,18 +160,22 @@
     </style>
 
     <script type="importmap">
-      {
-        "imports": {
-          "react": "https://aistudiocdn.com/react@^19.2.1",
-          "react-dom/client": "https://aistudiocdn.com/react-dom@^19.2.1/client",
-          "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
-          "react/": "https://aistudiocdn.com/react@^19.2.1/",
-          "react-dom": "https://aistudiocdn.com/react-dom@^19.2.1",
-          "@supabase/supabase-js": "https://aistudiocdn.com/@supabase/supabase-js@^2.86.2"
-        }
-      }
-    </script>
-  <link rel="stylesheet" href="/index.css">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.1",
+    "react-dom/client": "https://aistudiocdn.com/react-dom@^19.2.1/client",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
+    "react/": "https://aistudiocdn.com/react@^19.2.1/",
+    "react-dom": "https://aistudiocdn.com/react-dom@^19.2.1",
+    "@supabase/supabase-js": "https://aistudiocdn.com/@supabase/supabase-js@^2.86.2",
+    "path": "https://esm.sh/path@^0.12.7",
+    "vite": "https://esm.sh/vite@^7.3.1",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.4",
+    "url": "https://esm.sh/url@^0.11.4"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
 </head>
 
   <body
@@ -183,7 +187,6 @@
     ></div>
 
     <div id="root"></div>
-    <script type="module" src="./index.tsx"></script>
-  <script type="module" src="/index.tsx"></script>
+    <script type="module" src="/index.tsx"></script>
 </body>
 </html>

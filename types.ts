@@ -1,4 +1,3 @@
-
 export type Language = 'english' | 'arabic' | 'turkish' | 'indonesian';
 
 export interface Alliance {
@@ -36,36 +35,23 @@ export interface Player {
   t10Def: number;
   t10Elite: number; 
 
-  // Mastery Tech
-  masteryType: 'tank' | 'air' | 'missile' | 'none';
-  masteryHp1: number;
-  masteryAtk1: number;
-  masteryDef1: number;
-  masteryDmg1: number;
-  masteryMarch1: number;
-  masteryHp2: number;
-  masteryAtk2: number;
-  masteryDef2: number;
-  masteryDmg2: number;
-  masteryUltDef2: number;
-
   // Siege to Seize nodes
-  siegePb1: number;
-  siegeFs1: number;
-  siegeFa1: number;
-  siegeVf1: number;
-  siegeEdg: number;
-  siegeBe1: number;
-  siegeFt1: number;
-  siegeFs2: number;
-  siegeFa2: number;
-  siegeVf2: number;
-  siegeDge: number;
-  siegeRm1: number;
-  siegeFs3: number;
-  siegeFa3: number;
-  siegeVf3: number;
-  siegeFst1: number;
+  stsPowerBoost1: number;
+  stsFinalStand1: number;
+  stsFierceAssault1: number;
+  stsVigilantFormation1: number;
+  stsExtraDrillGround: number;
+  stsBarrackExpansion1: number;
+  stsFocusedTraining1: number;
+  stsFinalStand2: number;
+  stsFierceAssault2: number;
+  stsVigilantFormation2: number;
+  stsDrillGroundExpansion: number;
+  stsRapidMarch1: number;
+  stsFinalStand3: number;
+  stsFierceAssault3: number;
+  stsVigilantFormation3: number;
+  stsFatalStrike1: number;
   
   techLevel: number;
   barracksLevel: number;
