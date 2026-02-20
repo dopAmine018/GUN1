@@ -59,6 +59,72 @@ export interface Player {
   airCenterLevel: number;
   missileCenterLevel: number;
   
+  // Air Mastery
+  masteryAirHp1: number;
+  masteryAirAtk1: number;
+  masteryAirDef1: number;
+  masteryAirDamage1: number;
+  masteryAirMarch1: number;
+  masteryAirHp2: number;
+  masteryAirAtk2: number;
+  masteryAirDef2: number;
+  masteryAirDamage2: number;
+  masteryAirUltDef1: number;
+  masteryAirHp3: number;
+  masteryAirAtk3: number;
+  masteryAirDef3: number;
+  masteryAirDamage3: number;
+  masteryAirMarch2: number;
+  masteryAirHp4: number;
+  masteryAirAtk4: number;
+  masteryAirDef4: number;
+  masteryAirDamage4: number;
+  masteryAirUltDef2: number;
+
+  // Tank Mastery
+  masteryTankHp1: number;
+  masteryTankAtk1: number;
+  masteryTankDef1: number;
+  masteryTankDamage1: number;
+  masteryTankMarch1: number;
+  masteryTankHp2: number;
+  masteryTankAtk2: number;
+  masteryTankDef2: number;
+  masteryTankDamage2: number;
+  masteryTankUltDef1: number;
+  masteryTankHp3: number;
+  masteryTankAtk3: number;
+  masteryTankDef3: number;
+  masteryTankDamage3: number;
+  masteryTankMarch2: number;
+  masteryTankHp4: number;
+  masteryTankAtk4: number;
+  masteryTankDef4: number;
+  masteryTankDamage4: number;
+  masteryTankUltDef2: number;
+
+  // Missile Mastery
+  masteryMissileHp1: number;
+  masteryMissileAtk1: number;
+  masteryMissileDef1: number;
+  masteryMissileDamage1: number;
+  masteryMissileMarch1: number;
+  masteryMissileHp2: number;
+  masteryMissileAtk2: number;
+  masteryMissileDef2: number;
+  masteryMissileDamage2: number;
+  masteryMissileUltDef1: number;
+  masteryMissileHp3: number;
+  masteryMissileAtk3: number;
+  masteryMissileDef3: number;
+  masteryMissileDamage3: number;
+  masteryMissileMarch2: number;
+  masteryMissileHp4: number;
+  masteryMissileAtk4: number;
+  masteryMissileDef4: number;
+  masteryMissileDamage4: number;
+  masteryMissileUltDef2: number;
+
   active: boolean;
 }
 

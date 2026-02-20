@@ -38,9 +38,24 @@ const DEFAULT_STS = {
   stsFinalStand3: 0, stsFierceAssault3: 0, stsVigilantFormation3: 0, stsFatalStrike1: 0
 };
 
+const DEFAULT_MASTERY = {
+  masteryAirHp1: 0, masteryAirAtk1: 0, masteryAirDef1: 0, masteryAirDamage1: 0, masteryAirMarch1: 0,
+  masteryAirHp2: 0, masteryAirAtk2: 0, masteryAirDef2: 0, masteryAirDamage2: 0, masteryAirUltDef1: 0,
+  masteryAirHp3: 0, masteryAirAtk3: 0, masteryAirDef3: 0, masteryAirDamage3: 0, masteryAirMarch2: 0,
+  masteryAirHp4: 0, masteryAirAtk4: 0, masteryAirDef4: 0, masteryAirDamage4: 0, masteryAirUltDef2: 0,
+  masteryTankHp1: 0, masteryTankAtk1: 0, masteryTankDef1: 0, masteryTankDamage1: 0, masteryTankMarch1: 0,
+  masteryTankHp2: 0, masteryTankAtk2: 0, masteryTankDef2: 0, masteryTankDamage2: 0, masteryTankUltDef1: 0,
+  masteryTankHp3: 0, masteryTankAtk3: 0, masteryTankDef3: 0, masteryTankDamage3: 0, masteryTankMarch2: 0,
+  masteryTankHp4: 0, masteryTankAtk4: 0, masteryTankDef4: 0, masteryTankDamage4: 0, masteryTankUltDef2: 0,
+  masteryMissileHp1: 0, masteryMissileAtk1: 0, masteryMissileDef1: 0, masteryMissileDamage1: 0, masteryMissileMarch1: 0,
+  masteryMissileHp2: 0, masteryMissileAtk2: 0, masteryMissileDef2: 0, masteryMissileDamage2: 0, masteryMissileUltDef1: 0,
+  masteryMissileHp3: 0, masteryMissileAtk3: 0, masteryMissileDef3: 0, masteryMissileDamage3: 0, masteryMissileMarch2: 0,
+  masteryMissileHp4: 0, masteryMissileAtk4: 0, masteryMissileDef4: 0, masteryMissileDamage4: 0, masteryMissileUltDef2: 0,
+};
+
 const INITIAL_MOCK_PLAYERS: Player[] = [
-    { id: 'm1', allianceId: 'gun1', ...DEFAULT_STS, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), language: 'english', name: 'imAYAD', nameNormalized: 'imayad', firstSquadPower: 23200000, totalHeroPower: 18500000, heroPercent: 92, duelPercent: 88, unitsPercent: 85, t10Morale: 10, t10Protection: 10, t10Hp: 10, t10Atk: 10, t10Def: 10, t10Elite: 10, techLevel: 35, barracksLevel: 35, tankCenterLevel: 35, airCenterLevel: 35, missileCenterLevel: 35, active: true },
-    { id: 'm2', allianceId: 'gun1', ...DEFAULT_STS, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), language: 'turkish', name: 'TuyuLL', nameNormalized: 'tuyull', firstSquadPower: 23000000, totalHeroPower: 18100000, heroPercent: 90, duelPercent: 85, unitsPercent: 82, t10Morale: 10, t10Protection: 10, t10Hp: 10, t10Atk: 10, t10Def: 10, t10Elite: 10, techLevel: 35, barracksLevel: 35, tankCenterLevel: 35, airCenterLevel: 35, missileCenterLevel: 35, active: true },
+    { id: 'm1', allianceId: 'gun1', ...DEFAULT_STS, ...DEFAULT_MASTERY, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), language: 'english', name: 'imAYAD', nameNormalized: 'imayad', firstSquadPower: 23200000, totalHeroPower: 18500000, heroPercent: 92, duelPercent: 88, unitsPercent: 85, t10Morale: 10, t10Protection: 10, t10Hp: 10, t10Atk: 10, t10Def: 10, t10Elite: 10, techLevel: 35, barracksLevel: 35, tankCenterLevel: 35, airCenterLevel: 35, missileCenterLevel: 35, active: true },
+    { id: 'm2', allianceId: 'gun1', ...DEFAULT_STS, ...DEFAULT_MASTERY, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), language: 'turkish', name: 'TuyuLL', nameNormalized: 'tuyull', firstSquadPower: 23000000, totalHeroPower: 18100000, heroPercent: 90, duelPercent: 85, unitsPercent: 82, t10Morale: 10, t10Protection: 10, t10Hp: 10, t10Atk: 10, t10Def: 10, t10Elite: 10, techLevel: 35, barracksLevel: 35, tankCenterLevel: 35, airCenterLevel: 35, missileCenterLevel: 35, active: true },
 ];
 
 const getLocalMockData = <T>(key: string, initial: T): T => {
@@ -101,6 +116,66 @@ const mapPlayerFromDb = (row: any): Player => ({
   tankCenterLevel: row.tank_center_level,
   airCenterLevel: row.air_center_level,
   missileCenterLevel: row.missile_center_level,
+  masteryAirHp1: row.mastery_air_hp_1 || 0,
+  masteryAirAtk1: row.mastery_air_atk_1 || 0,
+  masteryAirDef1: row.mastery_air_def_1 || 0,
+  masteryAirDamage1: row.mastery_air_damage_1 || 0,
+  masteryAirMarch1: row.mastery_air_march_1 || 0,
+  masteryAirHp2: row.mastery_air_hp_2 || 0,
+  masteryAirAtk2: row.mastery_air_atk_2 || 0,
+  masteryAirDef2: row.mastery_air_def_2 || 0,
+  masteryAirDamage2: row.mastery_air_damage_2 || 0,
+  masteryAirUltDef1: row.mastery_air_ult_def_1 || 0,
+  masteryAirHp3: row.mastery_air_hp_3 || 0,
+  masteryAirAtk3: row.mastery_air_atk_3 || 0,
+  masteryAirDef3: row.mastery_air_def_3 || 0,
+  masteryAirDamage3: row.mastery_air_damage_3 || 0,
+  masteryAirMarch2: row.mastery_air_march_2 || 0,
+  masteryAirHp4: row.mastery_air_hp_4 || 0,
+  masteryAirAtk4: row.mastery_air_atk_4 || 0,
+  masteryAirDef4: row.mastery_air_def_4 || 0,
+  masteryAirDamage4: row.mastery_air_damage_4 || 0,
+  masteryAirUltDef2: row.mastery_air_ult_def_2 || 0,
+  masteryTankHp1: row.mastery_tank_hp_1 || 0,
+  masteryTankAtk1: row.mastery_tank_atk_1 || 0,
+  masteryTankDef1: row.mastery_tank_def_1 || 0,
+  masteryTankDamage1: row.mastery_tank_damage_1 || 0,
+  masteryTankMarch1: row.mastery_tank_march_1 || 0,
+  masteryTankHp2: row.mastery_tank_hp_2 || 0,
+  masteryTankAtk2: row.mastery_tank_atk_2 || 0,
+  masteryTankDef2: row.mastery_tank_def_2 || 0,
+  masteryTankDamage2: row.mastery_tank_damage_2 || 0,
+  masteryTankUltDef1: row.mastery_tank_ult_def_1 || 0,
+  masteryTankHp3: row.mastery_tank_hp_3 || 0,
+  masteryTankAtk3: row.mastery_tank_atk_3 || 0,
+  masteryTankDef3: row.mastery_tank_def_3 || 0,
+  masteryTankDamage3: row.mastery_tank_damage_3 || 0,
+  masteryTankMarch2: row.mastery_tank_march_2 || 0,
+  masteryTankHp4: row.mastery_tank_hp_4 || 0,
+  masteryTankAtk4: row.mastery_tank_atk_4 || 0,
+  masteryTankDef4: row.mastery_tank_def_4 || 0,
+  masteryTankDamage4: row.mastery_tank_damage_4 || 0,
+  masteryTankUltDef2: row.mastery_tank_ult_def_2 || 0,
+  masteryMissileHp1: row.mastery_missile_hp_1 || 0,
+  masteryMissileAtk1: row.mastery_missile_atk_1 || 0,
+  masteryMissileDef1: row.mastery_missile_def_1 || 0,
+  masteryMissileDamage1: row.mastery_missile_damage_1 || 0,
+  masteryMissileMarch1: row.mastery_missile_march_1 || 0,
+  masteryMissileHp2: row.mastery_missile_hp_2 || 0,
+  masteryMissileAtk2: row.mastery_missile_atk_2 || 0,
+  masteryMissileDef2: row.mastery_missile_def_2 || 0,
+  masteryMissileDamage2: row.mastery_missile_damage_2 || 0,
+  masteryMissileUltDef1: row.mastery_missile_ult_def_1 || 0,
+  masteryMissileHp3: row.mastery_missile_hp_3 || 0,
+  masteryMissileAtk3: row.mastery_missile_atk_3 || 0,
+  masteryMissileDef3: row.mastery_missile_def_3 || 0,
+  masteryMissileDamage3: row.mastery_missile_damage_3 || 0,
+  masteryMissileMarch2: row.mastery_missile_march_2 || 0,
+  masteryMissileHp4: row.mastery_missile_hp_4 || 0,
+  masteryMissileAtk4: row.mastery_missile_atk_4 || 0,
+  masteryMissileDef4: row.mastery_missile_def_4 || 0,
+  masteryMissileDamage4: row.mastery_missile_damage_4 || 0,
+  masteryMissileUltDef2: row.mastery_missile_ult_def_2 || 0,
   active: row.active
 });
 
@@ -144,6 +219,66 @@ const mapPlayerToDb = (p: Partial<Player>) => {
   if (p.tankCenterLevel !== undefined) out.tank_center_level = p.tankCenterLevel;
   if (p.airCenterLevel !== undefined) out.air_center_level = p.airCenterLevel;
   if (p.missileCenterLevel !== undefined) out.missile_center_level = p.missileCenterLevel;
+  if (p.masteryAirHp1 !== undefined) out.mastery_air_hp_1 = p.masteryAirHp1;
+  if (p.masteryAirAtk1 !== undefined) out.mastery_air_atk_1 = p.masteryAirAtk1;
+  if (p.masteryAirDef1 !== undefined) out.mastery_air_def_1 = p.masteryAirDef1;
+  if (p.masteryAirDamage1 !== undefined) out.mastery_air_damage_1 = p.masteryAirDamage1;
+  if (p.masteryAirMarch1 !== undefined) out.mastery_air_march_1 = p.masteryAirMarch1;
+  if (p.masteryAirHp2 !== undefined) out.mastery_air_hp_2 = p.masteryAirHp2;
+  if (p.masteryAirAtk2 !== undefined) out.mastery_air_atk_2 = p.masteryAirAtk2;
+  if (p.masteryAirDef2 !== undefined) out.mastery_air_def_2 = p.masteryAirDef2;
+  if (p.masteryAirDamage2 !== undefined) out.mastery_air_damage_2 = p.masteryAirDamage2;
+  if (p.masteryAirUltDef1 !== undefined) out.mastery_air_ult_def_1 = p.masteryAirUltDef1;
+  if (p.masteryAirHp3 !== undefined) out.mastery_air_hp_3 = p.masteryAirHp3;
+  if (p.masteryAirAtk3 !== undefined) out.mastery_air_atk_3 = p.masteryAirAtk3;
+  if (p.masteryAirDef3 !== undefined) out.mastery_air_def_3 = p.masteryAirDef3;
+  if (p.masteryAirDamage3 !== undefined) out.mastery_air_damage_3 = p.masteryAirDamage3;
+  if (p.masteryAirMarch2 !== undefined) out.mastery_air_march_2 = p.masteryAirMarch2;
+  if (p.masteryAirHp4 !== undefined) out.mastery_air_hp_4 = p.masteryAirHp4;
+  if (p.masteryAirAtk4 !== undefined) out.mastery_air_atk_4 = p.masteryAirAtk4;
+  if (p.masteryAirDef4 !== undefined) out.mastery_air_def_4 = p.masteryAirDef4;
+  if (p.masteryAirDamage4 !== undefined) out.mastery_air_damage_4 = p.masteryAirDamage4;
+  if (p.masteryAirUltDef2 !== undefined) out.mastery_air_ult_def_2 = p.masteryAirUltDef2;
+  if (p.masteryTankHp1 !== undefined) out.mastery_tank_hp_1 = p.masteryTankHp1;
+  if (p.masteryTankAtk1 !== undefined) out.mastery_tank_atk_1 = p.masteryTankAtk1;
+  if (p.masteryTankDef1 !== undefined) out.mastery_tank_def_1 = p.masteryTankDef1;
+  if (p.masteryTankDamage1 !== undefined) out.mastery_tank_damage_1 = p.masteryTankDamage1;
+  if (p.masteryTankMarch1 !== undefined) out.mastery_tank_march_1 = p.masteryTankMarch1;
+  if (p.masteryTankHp2 !== undefined) out.mastery_tank_hp_2 = p.masteryTankHp2;
+  if (p.masteryTankAtk2 !== undefined) out.mastery_tank_atk_2 = p.masteryTankAtk2;
+  if (p.masteryTankDef2 !== undefined) out.mastery_tank_def_2 = p.masteryTankDef2;
+  if (p.masteryTankDamage2 !== undefined) out.mastery_tank_damage_2 = p.masteryTankDamage2;
+  if (p.masteryTankUltDef1 !== undefined) out.mastery_tank_ult_def_1 = p.masteryTankUltDef1;
+  if (p.masteryTankHp3 !== undefined) out.mastery_tank_hp_3 = p.masteryTankHp3;
+  if (p.masteryTankAtk3 !== undefined) out.mastery_tank_atk_3 = p.masteryTankAtk3;
+  if (p.masteryTankDef3 !== undefined) out.mastery_tank_def_3 = p.masteryTankDef3;
+  if (p.masteryTankDamage3 !== undefined) out.mastery_tank_damage_3 = p.masteryTankDamage3;
+  if (p.masteryTankMarch2 !== undefined) out.mastery_tank_march_2 = p.masteryTankMarch2;
+  if (p.masteryTankHp4 !== undefined) out.mastery_tank_hp_4 = p.masteryTankHp4;
+  if (p.masteryTankAtk4 !== undefined) out.mastery_tank_atk_4 = p.masteryTankAtk4;
+  if (p.masteryTankDef4 !== undefined) out.mastery_tank_def_4 = p.masteryTankDef4;
+  if (p.masteryTankDamage4 !== undefined) out.mastery_tank_damage_4 = p.masteryTankDamage4;
+  if (p.masteryTankUltDef2 !== undefined) out.mastery_tank_ult_def_2 = p.masteryTankUltDef2;
+  if (p.masteryMissileHp1 !== undefined) out.mastery_missile_hp_1 = p.masteryMissileHp1;
+  if (p.masteryMissileAtk1 !== undefined) out.mastery_missile_atk_1 = p.masteryMissileAtk1;
+  if (p.masteryMissileDef1 !== undefined) out.mastery_missile_def_1 = p.masteryMissileDef1;
+  if (p.masteryMissileDamage1 !== undefined) out.mastery_missile_damage_1 = p.masteryMissileDamage1;
+  if (p.masteryMissileMarch1 !== undefined) out.mastery_missile_march_1 = p.masteryMissileMarch1;
+  if (p.masteryMissileHp2 !== undefined) out.mastery_missile_hp_2 = p.masteryMissileHp2;
+  if (p.masteryMissileAtk2 !== undefined) out.mastery_missile_atk_2 = p.masteryMissileAtk2;
+  if (p.masteryMissileDef2 !== undefined) out.mastery_missile_def_2 = p.masteryMissileDef2;
+  if (p.masteryMissileDamage2 !== undefined) out.mastery_missile_damage_2 = p.masteryMissileDamage2;
+  if (p.masteryMissileUltDef1 !== undefined) out.mastery_missile_ult_def_1 = p.masteryMissileUltDef1;
+  if (p.masteryMissileHp3 !== undefined) out.mastery_missile_hp_3 = p.masteryMissileHp3;
+  if (p.masteryMissileAtk3 !== undefined) out.mastery_missile_atk_3 = p.masteryMissileAtk3;
+  if (p.masteryMissileDef3 !== undefined) out.mastery_missile_def_3 = p.masteryMissileDef3;
+  if (p.masteryMissileDamage3 !== undefined) out.mastery_missile_damage_3 = p.masteryMissileDamage3;
+  if (p.masteryMissileMarch2 !== undefined) out.mastery_missile_march_2 = p.masteryMissileMarch2;
+  if (p.masteryMissileHp4 !== undefined) out.mastery_missile_hp_4 = p.masteryMissileHp4;
+  if (p.masteryMissileAtk4 !== undefined) out.mastery_missile_atk_4 = p.masteryMissileAtk4;
+  if (p.masteryMissileDef4 !== undefined) out.mastery_missile_def_4 = p.masteryMissileDef4;
+  if (p.masteryMissileDamage4 !== undefined) out.mastery_missile_damage_4 = p.masteryMissileDamage4;
+  if (p.masteryMissileUltDef2 !== undefined) out.mastery_missile_ult_def_2 = p.masteryMissileUltDef2;
   if (p.active !== undefined) out.active = p.active;
   out.updated_at = new Date().toISOString();
   return out;
