@@ -303,6 +303,7 @@ export const MockApi = {
           if (error) throw error;
           return { items: (data || []).map(mapPlayerFromDb), total: count || 0 };
       } catch (e: any) {
+          console.error("Supabase getPlayers Error:", e);
           const local = getLocalMockData<Player[]>('players', INITIAL_MOCK_PLAYERS);
           let filtered = local;
           if (filter.activeOnly) filtered = filtered.filter(p => p.active);
@@ -323,6 +324,7 @@ export const MockApi = {
           if (result.error) throw result.error;
           return { success: true, data: mapPlayerFromDb(result.data) };
       } catch (e: any) {
+          console.error("Supabase upsertPlayer Error:", e);
           const local = getLocalMockData<Player[]>('players', INITIAL_MOCK_PLAYERS);
           const idx = local.findIndex(p => p.nameNormalized === nameNormalized);
           const newPlayer: Player = {
@@ -351,6 +353,7 @@ export const MockApi = {
         if (error) throw error;
         return { success: true, data: mapPlayerFromDb(data) };
     } catch (e: any) {
+        console.error("Supabase adminUpdatePlayer Error:", e);
         const local = getLocalMockData<Player[]>('players', INITIAL_MOCK_PLAYERS);
         const idx = local.findIndex(p => p.id === id);
         if (idx === -1) return { success: false, error: "Mock ID not found" };
@@ -365,6 +368,7 @@ export const MockApi = {
         await supabase.from('players').delete().eq('id', id);
         return { success: true };
     } catch (e) {
+        console.error("Supabase adminDeletePlayer Error:", e);
         const local = getLocalMockData<Player[]>('players', INITIAL_MOCK_PLAYERS);
         saveLocalMockData('players', local.filter(p => p.id !== id));
         return { success: true };
@@ -377,13 +381,28 @@ export const MockApi = {
       const settings: Record<string, any> = {};
       (data || []).forEach(row => { settings[row.setting_name] = row.value; });
       return settings;
-    } catch (e) { return {}; }
+    } catch (e) { 
+      console.error("Supabase getSettings Error:", e);
+      return {}; 
+    }
   },
 
   updateSetting: async (key: string, value: any): Promise<void> => {
     try {
         await supabase.from('alliance_settings').upsert({ setting_name: key, value, updated_at: new Date().toISOString() });
-    } catch (e) {}
+    } catch (e) {
+        console.error("Supabase updateSetting Error:", e);
+    }
+  },
+
+  getDbStatus: async (): Promise<{ connected: boolean; source: 'supabase' | 'local' }> => {
+    try {
+      const { error } = await supabase.from('players').select('id').limit(1);
+      if (error) throw error;
+      return { connected: true, source: 'supabase' };
+    } catch (e) {
+      return { connected: false, source: 'local' };
+    }
   }
 };
 

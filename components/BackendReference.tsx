@@ -22,6 +22,7 @@ const BackendReference: React.FC = () => {
 {`-- 1. Create Players Table
 create table if not exists players (
   id uuid default gen_random_uuid() primary key,
+  alliance_id text default 'gun1',
   created_at timestamp with time zone default timezone('utc'::text, now()) not null,
   updated_at timestamp with time zone default timezone('utc'::text, now()) not null,
   language text not null,
@@ -41,17 +42,46 @@ create table if not exists players (
   t10_atk float default 1,
   t10_def float default 1,
   t10_elite float default 0,
+  sts_power_boost_1 int default 0,
+  sts_final_stand_1 int default 0,
+  sts_fierce_assault_1 int default 0,
+  sts_vigilant_formation_1 int default 0,
+  sts_extra_drill_ground int default 0,
+  sts_barrack_expansion_1 int default 0,
+  sts_focused_training_1 int default 0,
+  sts_final_stand_2 int default 0,
+  sts_fierce_assault_2 int default 0,
+  sts_vigilant_formation_2 int default 0,
+  sts_drill_ground_expansion int default 0,
+  sts_rapid_march_1 int default 0,
+  sts_final_stand_3 int default 0,
+  sts_fierce_assault_3 int default 0,
+  sts_vigilant_formation_3 int default 0,
+  sts_fatal_strike_1 int default 0,
   tech_level int default 0,
   barracks_level int default 0,
   tank_center_level int default 0,
   air_center_level int default 0,
   missile_center_level int default 0,
+  mastery_air_hp_1 int default 0, mastery_air_atk_1 int default 0, mastery_air_def_1 int default 0, mastery_air_damage_1 int default 0, mastery_air_march_1 int default 0,
+  mastery_air_hp_2 int default 0, mastery_air_atk_2 int default 0, mastery_air_def_2 int default 0, mastery_air_damage_2 int default 0, mastery_air_ult_def_1 int default 0,
+  mastery_air_hp_3 int default 0, mastery_air_atk_3 int default 0, mastery_air_def_3 int default 0, mastery_air_damage_3 int default 0, mastery_air_march_2 int default 0,
+  mastery_air_hp_4 int default 0, mastery_air_atk_4 int default 0, mastery_air_def_4 int default 0, mastery_air_damage_4 int default 0, mastery_air_ult_def_2 int default 0,
+  mastery_tank_hp_1 int default 0, mastery_tank_atk_1 int default 0, mastery_tank_def_1 int default 0, mastery_tank_damage_1 int default 0, mastery_tank_march_1 int default 0,
+  mastery_tank_hp_2 int default 0, mastery_tank_atk_2 int default 0, mastery_tank_def_2 int default 0, mastery_tank_damage_2 int default 0, mastery_tank_ult_def_1 int default 0,
+  mastery_tank_hp_3 int default 0, mastery_tank_atk_3 int default 0, mastery_tank_def_3 int default 0, mastery_tank_damage_3 int default 0, mastery_tank_march_2 int default 0,
+  mastery_tank_hp_4 int default 0, mastery_tank_atk_4 int default 0, mastery_tank_def_4 int default 0, mastery_tank_damage_4 int default 0, mastery_tank_ult_def_2 int default 0,
+  mastery_missile_hp_1 int default 0, mastery_missile_atk_1 int default 0, mastery_missile_def_1 int default 0, mastery_missile_damage_1 int default 0, mastery_missile_march_1 int default 0,
+  mastery_missile_hp_2 int default 0, mastery_missile_atk_2 int default 0, mastery_missile_def_2 int default 0, mastery_missile_damage_2 int default 0, mastery_missile_ult_def_1 int default 0,
+  mastery_missile_hp_3 int default 0, mastery_missile_atk_3 int default 0, mastery_missile_def_3 int default 0, mastery_missile_damage_3 int default 0, mastery_missile_march_2 int default 0,
+  mastery_missile_hp_4 int default 0, mastery_missile_atk_4 int default 0, mastery_missile_def_4 int default 0, mastery_missile_damage_4 int default 0, mastery_missile_ult_def_2 int default 0,
   active boolean default true
 );
 
 -- 2. Create VS Tracker Tables
 create table if not exists vs_weeks (
   id uuid default gen_random_uuid() primary key,
+  alliance_id text default 'gun1',
   created_at timestamp with time zone default timezone('utc'::text, now()) not null,
   name text not null
 );
@@ -59,6 +89,7 @@ create table if not exists vs_weeks (
 create table if not exists vs_records (
   id uuid default gen_random_uuid() primary key,
   week_id uuid references vs_weeks(id) on delete cascade,
+  alliance_id text default 'gun1',
   player_name text not null,
   mon int default 0, tue int default 0, wed int default 0,
   thu int default 0, fri int default 0, sat int default 0,
@@ -68,6 +99,7 @@ create table if not exists vs_records (
 -- 3. Create Train Schedule Table
 create table if not exists train_schedule (
   id uuid default gen_random_uuid() primary key,
+  alliance_id text default 'gun1',
   created_at timestamp with time zone default timezone('utc'::text, now()) not null,
   schedule_data jsonb not null
 );
@@ -75,6 +107,7 @@ create table if not exists train_schedule (
 -- 4. Create Desert Storm Table
 create table if not exists desert_storm_teams (
   id uuid default gen_random_uuid() primary key,
+  alliance_id text default 'gun1',
   created_at timestamp with time zone default timezone('utc'::text, now()) not null,
   team_data jsonb not null
 );
@@ -82,6 +115,7 @@ create table if not exists desert_storm_teams (
 -- 5. Create Registration Table
 create table if not exists desert_storm_registrations (
   id uuid default gen_random_uuid() primary key,
+  alliance_id text default 'gun1',
   created_at timestamp with time zone default timezone('utc'::text, now()) not null,
   player_id uuid references players(id) on delete cascade,
   preference text not null
@@ -91,6 +125,7 @@ create table if not exists desert_storm_registrations (
 drop table if exists alliance_settings;
 create table alliance_settings (
   setting_name text primary key,
+  alliance_id text default 'gun1',
   value jsonb not null,
   updated_at timestamp with time zone default timezone('utc'::text, now()) not null
 );

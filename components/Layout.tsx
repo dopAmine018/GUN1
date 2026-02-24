@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../utils/i18n';
 import { Language, Alliance } from '../types';
 import { CustomDropdown } from './CustomDropdown';
+import { MockApi } from '../services/mockBackend';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -16,11 +17,22 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children, activeTab, onTabChange, onHomeClick, showHomeBtn, onNavigate, alliance }) => {
   const { language, setLanguage, t, dir } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
+  const [dbStatus, setDbStatus] = useState<{ connected: boolean; source: 'supabase' | 'local' }>({ connected: false, source: 'local' });
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    
+    // Check DB Status
+    MockApi.getDbStatus().then(setDbStatus);
+    const interval = setInterval(() => {
+        MockApi.getDbStatus().then(setDbStatus);
+    }, 30000);
+
+    return () => {
+        window.removeEventListener('scroll', handleScroll);
+        clearInterval(interval);
+    };
   }, []);
 
   const languageOptions = [
@@ -162,7 +174,14 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, onTabChange, onHom
                 </p>
             </div>
 
-            <p className="text-[10px] text-slate-600 font-mono">SECURE CONNECTION ESTABLISHED // ENCRYPTED</p>
+            <p className="text-[10px] text-slate-600 font-mono flex items-center gap-2">
+                SECURE CONNECTION ESTABLISHED // ENCRYPTED
+                <span className="w-1 h-1 rounded-full bg-slate-800"></span>
+                <span className={`flex items-center gap-1.5 ${dbStatus.source === 'supabase' ? 'text-emerald-500' : 'text-amber-500'}`}>
+                    <span className={`w-1.5 h-1.5 rounded-full ${dbStatus.source === 'supabase' ? 'bg-emerald-500' : 'bg-amber-500 animate-pulse'}`}></span>
+                    {dbStatus.source === 'supabase' ? 'SUPABASE ACTIVE' : 'LOCAL STORAGE MODE'}
+                </span>
+            </p>
         </div>
       </footer>
     </div>
